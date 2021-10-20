@@ -13,7 +13,6 @@
 #include "input.h"
 
 void displayMainMenu(void);
-
 void mainMenu(void);
 void programOne(void);
 void programTwo(void);
@@ -69,6 +68,7 @@ void programTwo(void)
     clearScreen();
     cout << "\t2> Translation of Arithmetic Expression" << endl;
     cout << "\t" + string(100, char(196)) << endl;
+    optionTwoCall();
     pause("\tdelete function");
     /*function(s) here*/
 }
