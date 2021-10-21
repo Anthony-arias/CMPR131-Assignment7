@@ -17,17 +17,18 @@ using namespace std;
 double read_and_evaluate(istream& ins);
 void evaluate_stack_tops(stack<double>& numbers, stack<char>& operations);
 
+
 void toPostfixNotation(istream& ins)
 {
 	const char DECIMAL = '.';
 	const char RIGHT_PARENTHESIS = ')';
 	const char LEFT_PARENTHESIS = '(';
-
 	stack<double> numbers;
 	stack<char> operations;
 	double number;
 	char symbol;
 	// Loop continues while istream is not “bad” (tested by ins) and next character isn’t newline.
+	cout << "\t";
 	while (ins && ins.peek() != '\n')
 	{
 		if (ins.peek() == LEFT_PARENTHESIS)
@@ -47,17 +48,18 @@ void toPostfixNotation(istream& ins)
 			{
 				if (operations.empty() || operations.top() == LEFT_PARENTHESIS) break;
 
-				if (ins.peek() == RIGHT_PARENTHESIS 
-					&& ( operations.top() == '^' || operations.top() == '*'
+				if (ins.peek() == RIGHT_PARENTHESIS
+					&& (operations.top() == '^' || operations.top() == '*'
 						|| operations.top() == '/' || operations.top() == '+'
 						|| operations.top() == '-'))
 				{
+
 					break;
 				}
 				else if (ins.peek() == '^'
 					&& (operations.top() == '*' || operations.top() == '/'
-					|| operations.top() == '+'
-					|| operations.top() == '-'))
+						|| operations.top() == '+'
+						|| operations.top() == '-'))
 				{
 					break;
 				}
@@ -84,6 +86,7 @@ void toPostfixNotation(istream& ins)
 			}
 			ins >> symbol;
 			operations.push(symbol);
+
 		}
 		else
 		{
@@ -134,18 +137,100 @@ void toPostfixNotation(istream& ins)
 		operations.pop();
 	}
 	//return numbers.top();
+
 }
 
+int precedence(char ch)
+{
+	if (ch == '+' || ch == '-')
+		return 1;
+	if (ch == '/' || ch == '*')
+		return 2;
+	if (ch == '^')
+		return 3;
+	return 0;
+}
+
+void infixToPostfix(istream& ins)
+{
+	const char RIGHT_PARENTHESIS = ')';
+	const char LEFT_PARENTHESIS = '(';
+	stack<char> operations;
+	string expression = "";
+	char operand;
+	char symbol;
+	// Loop continues while istream is not “bad” (tested by ins) and next character isn’t newline.
+
+	while (ins && ins.peek() != '\n')
+	{
+		if (ins.peek() == LEFT_PARENTHESIS)
+		{
+			ins >> symbol;
+			operations.push(symbol);
+		}
+		else if (isdigit(ins.peek()) || isalpha(ins.peek()))
+		{
+			ins >> operand;
+			expression += operand;
+		}
+		else if (strchr("+-*/^", ins.peek()) != NULL)
+		{
+			while (!operations.empty() && operations.top() != LEFT_PARENTHESIS && precedence(operations.top()) > precedence(ins.peek()))
+			{
+				expression += operations.top();
+				operations.pop();
+
+			} 
+			ins >> symbol;
+			operations.push(symbol);
+		}
+		else 
+		{
+			ins.ignore();
+			while (!operations.empty() && operations.top() != LEFT_PARENTHESIS) 
+			{
+				expression += operations.top();
+				operations.pop();
+			}
+			if (!operations.empty() && operations.top() == LEFT_PARENTHESIS)
+			{
+				operations.pop();
+			}
+			else
+			{
+				expression = "ERROR: inbalanced parentheses.";
+				break;
+			}
+		}
+	} 
+
+	while (!operations.empty())
+	{
+		if (operations.top() == LEFT_PARENTHESIS)
+		{
+			expression = "ERROR: inbalanced parentheses.";
+			break;
+		}
+		else
+		{
+			expression += operations.top();
+			operations.pop();
+		}
+	}
+	cout << "\tPostfix expression: " << expression << endl;
+}
 void optionTwoCall(void)
 {
-	double answer;
+	do
+	{
+		double answer;
 
-	string input;
-	cout << "Type a arithmetic expression:" << endl;
+		string input;
+		cout << "\tType an arithmetic expression: ";
+		infixToPostfix(cin);
+		cout << endl;
 
-	toPostfixNotation(cin);
-	//cout << "That evaluates to " << answer << endl;
-	pause("");
+	} while (isRepeat("\n\tContinue (Y-yes or N-no)? "));
 }
 
 //double read_and_evaluate(istream& ins)
