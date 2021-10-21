@@ -69,8 +69,7 @@ void programTwo(void)
     cout << "\t2> Translation of Arithmetic Expression" << endl;
     cout << "\t" + string(100, char(196)) << endl;
     
-    optionTwoCall();
-    /*function(s) here*/
+    convert();
 }
 
 //PreCondition: NA
