@@ -41,6 +41,7 @@ void removeQueen(stack<int>& s, vector< vector <char>>& v, int& row, int& col, i
 // Postcondition: return true if queens in table is conflicted with each other, and false if it is not
 bool checkQueenCondition(vector< vector <char>>& v, int& row, int& col, int size)
 {
+
 	
 	for (int rowNumber = 1; rowNumber <= size; rowNumber++)
 	{
@@ -161,6 +162,8 @@ void backTracking(stack<int>& s, vector< vector <char>>& v, int size, int& count
 
 		while (!newQueenSet)
 		{
+			if (s.size() <= 0)
+				return;
 			newQueenSet = moveQueenPreviousRow(s, v, size, count);
 		}
 	}
