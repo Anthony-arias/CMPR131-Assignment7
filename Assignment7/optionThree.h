@@ -11,8 +11,7 @@
 using namespace std;
 
 void displayBoard(vector< vector <char>> v);
-bool checkQueenCondition(vector< vector <char>>& v, int row, int col, int size);
-bool checkEmptyBoard(vector< vector <char>>& v, int size);
+bool checkQueenCondition(vector< vector <char>>& v, int& row, int& col, int size);
 bool checkWinningCondition(vector<vector <char>>& v, int size);
 void inputQueen(stack<int>& s, vector< vector <char>>& v, int& row, int& col, int size, int& count);
 void removeQueen(stack<int>& s, vector< vector <char>>& v, int& row, int& col, int size, int& count);
@@ -24,7 +23,6 @@ void backTracking(stack<int>& s, vector< vector <char>>& v, int size, int& count
 // Postcondition: input a queen from indicated position
 void inputQueen(stack<int> &s, vector< vector <char>>& v, int& row, int& col, int size, int& count)
 {
-
 	v[row - 1][col - 1] = 'Q';
 	s.push(col);
 	count++;
@@ -34,45 +32,29 @@ void inputQueen(stack<int> &s, vector< vector <char>>& v, int& row, int& col, in
 // Postcondition: remove a queen from indicated position
 void removeQueen(stack<int>& s, vector< vector <char>>& v, int& row, int& col, int size, int& count)
 {
-
 	v[row - 1][col - 1] = '_';
 	s.pop();
 	count--;
 }
 
 // Precondition: valid nested char vector to display board game, valid row, valid column, the board's size
-// Postcondition: return true if queens in table is not conflicted with each other, and false if it is not
-bool checkQueenCondition(vector< vector <char>>& v, int row, int col, int size)
+// Postcondition: return true if queens in table is conflicted with each other, and false if it is not
+bool checkQueenCondition(vector< vector <char>>& v, int& row, int& col, int size)
 {
-	// Check columns if there are queens on the same row
-	for (int i = 0; i < size; i++)
+	
+	for (int rowNumber = 1; rowNumber <= size; rowNumber++)
 	{
-		if (v[row][i] == 'Q')
-			return false;
+		for (int columnNumber = 1; columnNumber <= size; columnNumber++)
+		{
+			if (v[rowNumber - 1][columnNumber - 1] == 'Q')
+			{
+				if ((rowNumber == row) || (columnNumber == col) || (rowNumber + columnNumber == (row + col)) || (rowNumber - columnNumber == (row - col)))
+					return true;
+			}
+		}
 	}
-	// Check rows if there are queens on the same column
-	for (int i = 0; i < size; i++)
-		if (v[i][col] == 'Q')
-			return false;
-
-	// Check diagonal lines if there are queens on the same line
-	for (int i = row, j = col; i >= 0 && j >= 0; i--, j--)
-		if (v[i][j] == 'Q')
-			return false;
-
-	for (int i = row, j = col; i >= 0 && j < size; i--, j++)
-		if (v[i][j] == 'Q')
-			return false;
-
-	for (int i = row, j = col; i < size && j >= 0; i++, j--)
-		if (v[i][j] == 'Q')
-			return false;
-
-	for (int i = row, j = col; i < size && j < size; i++, j++)
-		if (v[i][j] == 'Q')
-			return false;
-
-	return true;
+	return false;
+	
 }
 
 // Precondition: valid nested char vector to display board game and the board's size
@@ -97,7 +79,7 @@ void displayBoard(vector< vector <char>> v)
 {
 	cout << endl;
 	int shapeSize = v.capacity() + 2;
-	for (int row = 0; row < shapeSize; ++row)
+	for (int row = 0; row < shapeSize; row++)
 	{
 		cout << "\t";
 		if (row == 0 || row == shapeSize - 1)
@@ -195,7 +177,7 @@ bool setQueenNextRow(stack<int> &s, vector< vector <char>>& v, int size, int& co
 		if (v[nextRow - 1][column - 1] != 'Q' && !checkQueenCondition(v, nextRow, column, size))
 		{
 			inputQueen(s, v, nextRow, column, size, count);
-			++nextRow;
+			nextRow++;
 			return true;
 		}
 	}
