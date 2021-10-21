@@ -80,8 +80,38 @@ void programThree(void)
     clearScreen();
     cout << "\t3 > n - Queens Problem" << endl;
     cout << "\t" + string(100, char(196)) << endl;
-    pause("\tdelete function");
-    /*function(s) here*/
+    
+    stack<int> s;
+    int queenCount = 0; // count the number of queen exist in game
+    int row = 1; // initial position of row for backtracking
+    int n = inputInteger("\n\tEnter a number(1..100) of queens: ", 1, 100);
+    int inputColumn = inputInteger("\n\tPosition a queen in the column (1.." + to_string(n) + "): ", 1, n);
+    vector<vector<char>> board(n, vector<char>(n, '_'));
+    if (n == 2 || n == 3)
+    {
+        displayBoard(board);
+        cout << "\tNo solution.\n";
+        system("PAUSE");
+    }
+       
+    else
+    {
+        vector<vector<char>> board(n, vector<char>(n, '_'));
+        displayBoard(board);
+
+        cout << "\n\t" << n << "-Queen(s) solution: \n";
+        inputQueen(s, board, row, inputColumn, n, queenCount);
+        backTracking(s, board, n, queenCount);
+        if (s.size() <= 0)
+        {
+            cout << "\n\tNo solution.\n";
+            system("PAUSE");
+            return;
+        }
+            
+        displayBoard(board);
+        system("PAUSE");
+    }
 }
 
 //PreCondition: NA
