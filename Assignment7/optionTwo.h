@@ -11,6 +11,8 @@
 
 using namespace std;
 
+//PreCondition: input is type char
+//PostCondition: returns type int precedence ranking of arithmetic operation
 int precedence(char ch)
 {
 	if (ch == '+' || ch == '-')
@@ -22,6 +24,8 @@ int precedence(char ch)
 	return 4;
 }
 
+//PreCondition: input is istream reference
+//PostCondition: returns conversion of infix expression to postfix
 string infixToPostfix(istream& ins)
 {
 	const char RIGHT_PARENTHESIS = ')';
@@ -123,6 +127,8 @@ string infixToPostfix(istream& ins)
 	//cout << "\tPostfix expression: " << expression << endl;
 }
 
+//PreCondition: NA
+//PostCondition: ask user for expression input and calls function to convert expression
 void convert(void)
 {
 	do
