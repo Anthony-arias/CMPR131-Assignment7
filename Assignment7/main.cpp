@@ -135,7 +135,7 @@ void displayMainMenu(void)
     cout << "\t" + string(100, char(205)) << endl;
     cout << "\t\t1> Simple Calculator (problem 9, pg 391)" << endl;
     cout << "\t\t2> Translation of arithmetic expression (problem 10, pg 391)" << endl;
-    cout << "\t\t3> n-Queens Problem (problem 11, pg 391-292)" << endl;
+    cout << "\t\t3> n-Queens Problem (problem 11, pg 391-392)" << endl;
     cout << "\t" + string(100, char(196)) << endl;
     cout << "\t\t0> exit" << endl;
     cout << "\t" + string(100, char(205)) << endl;
