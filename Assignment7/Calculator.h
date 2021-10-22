@@ -58,7 +58,9 @@ private:
 		double number;
 		char symbol;
 
-		while (expression && expression.peek() != '\n') {
+		while (expression && expression.peek() != '\n') 
+		{
+
 			if (isdigit(expression.peek()) || (expression.peek() == DECIMAL)) {
 				expression >> number;
 				numbers.push(number);
@@ -109,7 +111,12 @@ public:
 	{
 		if (!isBalanced(expression))
 			throw invalid_argument("\tERROR: Parentheses don't match.");
-		
+		else
+		{
+			for (int i = 0; i < expression.length(); i++)
+				if (isalpha(expression[i]))
+					throw invalid_argument("\tERROR: Invalid arithmetic expression.");
+		}
 		istringstream istr(expression);
 		evaluation = readAndEvaluate(istr);
 	}
@@ -118,7 +125,12 @@ public:
 	{
 		if (!isBalanced(expression))
 			throw invalid_argument("\tERROR: Parentheses don't match");
-
+		else
+		{
+			for (int i = 0; i < expression.length(); i++)
+				if (isalpha(expression[i]))
+					throw invalid_argument("\tERROR: Invalid arithmetic expression.");
+		}
 		istringstream istr(expression);
 		evaluation = readAndEvaluate(istr);
 	}
