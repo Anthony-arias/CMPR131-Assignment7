@@ -142,6 +142,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Calculator.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="optionOne.h" />
     <ClInclude Include="optionThree.h" />

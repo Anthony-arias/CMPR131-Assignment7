@@ -11,9 +11,9 @@
 #include "optionTwo.h"
 #include "optionThree.h"
 #include "input.h"
+#include "Calculator.h"
 
 void displayMainMenu(void);
-
 void mainMenu(void);
 void programOne(void);
 void programTwo(void);
@@ -57,8 +57,23 @@ void programOne(void)
     clearScreen();
     cout << "\t1> Simple Calculator" << endl;
     cout << "\t" + string(100, char(196)) << endl;
-    pause("\tdelete function");
-    /*function(s) here*/
+    do {
+        cout << endl;
+
+        string expression = inputString("\tType a fully parenthesized arithmetic expression: ", false);
+        try
+        {
+            Calculator myCalculator;
+            myCalculator.setExpression(expression);
+            cout << "\tIt evaluates to " << myCalculator.getEvaluaton() << endl;
+        }
+        catch (const invalid_argument& e)
+        {
+            cout << e.what() << endl;
+        }
+
+
+    } while (isRepeat("\n\tWould you like to try again (Y/N): "));
 }
 
 
@@ -69,8 +84,8 @@ void programTwo(void)
     clearScreen();
     cout << "\t2> Translation of Arithmetic Expression" << endl;
     cout << "\t" + string(100, char(196)) << endl;
-    pause("\tdelete function");
-    /*function(s) here*/
+    
+    convert();
 }
 
 //PreCondition: NA
@@ -108,7 +123,6 @@ void programThree(void)
             system("PAUSE");
             return;
         }
-            
         displayBoard(board);
         system("PAUSE");
     }
