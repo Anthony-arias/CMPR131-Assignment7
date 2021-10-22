@@ -64,6 +64,7 @@ string infixToPostfix(istream& ins)
 			while (!operations.empty() && operations.top() != LEFT_PARENTHESIS && precedence(operations.top()) >= precedence(ins.peek()))
 			{
 				expression += operations.top();
+				expression += " ";
 				operations.pop();
 
 			} 
@@ -76,6 +77,7 @@ string infixToPostfix(istream& ins)
 			while (!operations.empty() && operations.top() != LEFT_PARENTHESIS) 
 			{
 				expression += operations.top();
+				expression += " ";
 				operations.pop();
 			}
 			if (!operations.empty() && operations.top() == LEFT_PARENTHESIS)
@@ -100,6 +102,7 @@ string infixToPostfix(istream& ins)
 		else
 		{
 			expression += operations.top();
+			expression += " ";
 			operations.pop();
 		}
 	}
@@ -113,7 +116,7 @@ void convert(void)
 {
 	do
 	{
-		string input;
+		cout << endl;
 		cout << "\tType an arithmetic expression: ";
 		cout << "\tPostfix expression: " << infixToPostfix(cin) << endl;
 		//cout << infixToPostfix(cin);
