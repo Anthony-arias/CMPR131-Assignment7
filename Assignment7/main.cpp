@@ -117,6 +117,12 @@ void programThree(void)
         cout << "\n\t" << n << "-Queen(s) solution: \n";
         inputQueen(s, board, row, inputColumn, n, queenCount);
         backTracking(s, board, n, queenCount);
+        if (s.size() <= 0)
+        {
+            cout << "\n\tNo solution.\n";
+            system("PAUSE");
+            return;
+        }
         displayBoard(board);
         system("PAUSE");
     }
