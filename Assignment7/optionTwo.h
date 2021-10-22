@@ -93,9 +93,13 @@ string infixToPostfix(istream& ins)
 					break;
 				}
 			}
-			expression = "ERROR: invalid expression.";
-			cin.ignore(999, '\n');
-			break;
+			else
+			{
+				expression = "ERROR: invalid expression.";
+				cin.ignore(999, '\n');
+				break;
+			}
+			
 		}
 	} 
 
