@@ -73,22 +73,27 @@ string infixToPostfix(istream& ins)
 		}
 		else 
 		{
-			ins.ignore();
-			while (!operations.empty() && operations.top() != LEFT_PARENTHESIS) 
+			if (ins.peek() == RIGHT_PARENTHESIS)
 			{
-				expression += operations.top();
-				expression += " ";
-				operations.pop();
+				ins.ignore();
+				while (!operations.empty() && operations.top() != LEFT_PARENTHESIS)
+				{
+					expression += operations.top();
+					expression += " ";
+					operations.pop();
+				}
+				if (!operations.empty() && operations.top() == LEFT_PARENTHESIS)
+				{
+					operations.pop();
+				}
+				else
+				{
+					expression = "ERROR: inbalanced parentheses.";
+					break;
+				}
 			}
-			if (!operations.empty() && operations.top() == LEFT_PARENTHESIS)
-			{
-				operations.pop();
-			}
-			else
-			{
-				expression = "ERROR: inbalanced parentheses.";
-				break;
-			}
+			else 
+				ins.ignore();
 		}
 	} 
 
