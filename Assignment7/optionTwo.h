@@ -73,6 +73,7 @@ string infixToPostfix(istream& ins)
 		}
 		else 
 		{
+
 			if (ins.peek() == RIGHT_PARENTHESIS)
 			{
 				ins.ignore();
@@ -88,12 +89,13 @@ string infixToPostfix(istream& ins)
 				}
 				else
 				{
-					expression = "ERROR: inbalanced parentheses.";
+					expression = "ERROR: unbalanced parentheses.";
 					break;
 				}
 			}
-			else 
-				ins.ignore();
+			expression = "ERROR: invalid expression.";
+			cin.ignore(999, '\n');
+			break;
 		}
 	} 
 
