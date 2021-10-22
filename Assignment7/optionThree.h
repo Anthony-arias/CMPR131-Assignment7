@@ -20,7 +20,7 @@ bool moveQueenPreviousRow(stack<int>& s, vector< vector <char>>& v, int size, in
 void backTracking(stack<int>& s, vector< vector <char>>& v, int size, int& count);
 
 // Precondition: valid nested char vector to display board game and the board's size
-// Postcondition: input a queen from indicated position
+// Postcondition: input a queen and push current column position in the stack
 void inputQueen(stack<int> &s, vector< vector <char>>& v, int& row, int& col, int size, int& count)
 {
 	v[row - 1][col - 1] = 'Q';
@@ -29,7 +29,7 @@ void inputQueen(stack<int> &s, vector< vector <char>>& v, int& row, int& col, in
 }
 
 // Precondition: valid nested char vector to display board game and the board's size
-// Postcondition: remove a queen from indicated position
+// Postcondition: remove a queen and pop current column position out of stack
 void removeQueen(stack<int>& s, vector< vector <char>>& v, int& row, int& col, int size, int& count)
 {
 	v[row - 1][col - 1] = '_';
@@ -40,20 +40,13 @@ void removeQueen(stack<int>& s, vector< vector <char>>& v, int& row, int& col, i
 // Precondition: valid nested char vector to display board game, valid row, valid column, the board's size
 // Postcondition: return true if queens in table is conflicted with each other, and false if it is not
 bool checkQueenCondition(vector< vector <char>>& v, int& row, int& col, int size)
-{
-
-	
+{	
 	for (int rowNumber = 1; rowNumber <= size; rowNumber++)
-	{
 		for (int columnNumber = 1; columnNumber <= size; columnNumber++)
-		{
 			if (v[rowNumber - 1][columnNumber - 1] == 'Q')
-			{
 				if ((rowNumber == row) || (columnNumber == col) || (rowNumber + columnNumber == (row + col)) || (rowNumber - columnNumber == (row - col)))
 					return true;
-			}
-		}
-	}
+		
 	return false;
 	
 }
@@ -169,8 +162,8 @@ void backTracking(stack<int>& s, vector< vector <char>>& v, int size, int& count
 	}
 }
 
-//Precondition: Game has not solved yet
-//Postcondition: Set a queen on the next row at an non-conflicted position
+//Precondition: game has not solved yet
+//Postcondition: set a queen on the next row at an non-conflicted position
 bool setQueenNextRow(stack<int> &s, vector< vector <char>>& v, int size, int& count)
 {
 	int nextRow = s.size() + 1;
