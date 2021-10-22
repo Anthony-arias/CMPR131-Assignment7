@@ -11,9 +11,9 @@
 #include "optionTwo.h"
 #include "optionThree.h"
 #include "input.h"
-#include "Calculator.h"
 
 void displayMainMenu(void);
+
 void mainMenu(void);
 void programOne(void);
 void programTwo(void);
@@ -57,23 +57,8 @@ void programOne(void)
     clearScreen();
     cout << "\t1> Simple Calculator" << endl;
     cout << "\t" + string(100, char(196)) << endl;
-    do {
-        cout << endl;
-
-        string expression = inputString("\tType a fully parenthesized arithmetic expression: ", false);
-        try
-        {
-            Calculator myCalculator;
-            myCalculator.setExpression(expression);
-            cout << "\tIt evaluates to " << myCalculator.getEvaluaton() << endl;
-        }
-        catch (const invalid_argument& e)
-        {
-            cout << e.what() << endl;
-        }
-
-
-    } while (isRepeat("\n\tWould you like to try again (Y/N): "));
+    pause("\tdelete function");
+    /*function(s) here*/
 }
 
 
@@ -84,8 +69,8 @@ void programTwo(void)
     clearScreen();
     cout << "\t2> Translation of Arithmetic Expression" << endl;
     cout << "\t" + string(100, char(196)) << endl;
-    
-    convert();
+    pause("\tdelete function");
+    /*function(s) here*/
 }
 
 //PreCondition: NA
@@ -95,8 +80,8 @@ void programThree(void)
     clearScreen();
     cout << "\t3 > n - Queens Problem" << endl;
     cout << "\t" + string(100, char(196)) << endl;
-    
-    stack<int> s;
+
+    stack<int> s; // store the position of column 
     int queenCount = 0; // count the number of queen exist in game
     int row = 1; // initial position of row for backtracking
     int n = inputInteger("\n\tEnter a number(1..100) of queens: ", 1, 100);
@@ -104,7 +89,6 @@ void programThree(void)
     vector<vector<char>> board(n, vector<char>(n, '_'));
     if (n == 2 || n == 3)
     {
-        displayBoard(board);
         cout << "\tNo solution.\n";
         system("PAUSE");
     }
@@ -112,7 +96,6 @@ void programThree(void)
     else
     {
         vector<vector<char>> board(n, vector<char>(n, '_'));
-        displayBoard(board);
 
         cout << "\n\t" << n << "-Queen(s) solution: \n";
         inputQueen(s, board, row, inputColumn, n, queenCount);
@@ -123,9 +106,12 @@ void programThree(void)
             system("PAUSE");
             return;
         }
-        displayBoard(board);
-        system("PAUSE");
-    }
+        else
+        {
+            displayBoard(board);
+            system("PAUSE");
+        }                  
+    }  
 }
 
 //PreCondition: NA
