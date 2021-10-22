@@ -3,6 +3,7 @@
 #ifndef OPTION_TWO_LOCK
 #define OPTION_TWO_LOCK
 
+#include <sstream>
 #include <iostream> 
 #include <stack> 
 #include <string>
@@ -21,12 +22,15 @@ int precedence(char ch)
 	return 4;
 }
 
-void infixToPostfix(istream& ins)
+string infixToPostfix(istream& ins)
 {
 	const char RIGHT_PARENTHESIS = ')';
 	const char LEFT_PARENTHESIS = '(';
+	const char DECIMAL = '.';
 	stack<char> operations;
 	string expression = "";
+
+	double number;
 	char operand;
 	char symbol;
 
@@ -37,10 +41,23 @@ void infixToPostfix(istream& ins)
 			ins >> symbol;
 			operations.push(symbol);
 		}
-		else if (isdigit(ins.peek()) || isalpha(ins.peek()))
+		else if (isdigit(ins.peek()) || isalpha(ins.peek()) || (ins.peek() == DECIMAL))
 		{
-			ins >> operand;
-			expression += operand;
+			if (isalpha(ins.peek()))
+			{
+				ins >> operand;
+				expression += operand;
+				expression += " ";
+			}
+			else
+			{
+				ins >> number;
+				string temp = to_string(number);
+				temp.erase(temp.find_last_not_of('0') + 1, std::string::npos);
+				temp.erase(temp.find_last_not_of('.') + 1, std::string::npos);
+				expression += temp + " ";
+			}
+			
 		}
 		else if (strchr("+-*/^", ins.peek()) != NULL)
 		{
@@ -86,7 +103,10 @@ void infixToPostfix(istream& ins)
 			operations.pop();
 		}
 	}
-	cout << "\tPostfix expression: " << expression << endl;
+
+	
+	return expression;
+	//cout << "\tPostfix expression: " << expression << endl;
 }
 
 void convert(void)
@@ -95,7 +115,8 @@ void convert(void)
 	{
 		string input;
 		cout << "\tType an arithmetic expression: ";
-		infixToPostfix(cin);
+		cout << "\tPostfix expression: " << infixToPostfix(cin) << endl;
+		//cout << infixToPostfix(cin);
 		cout << endl;
 	} while (isRepeat("\n\tContinue (Y-yes or N-no)? "));
 }

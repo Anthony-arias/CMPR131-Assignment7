@@ -56,6 +56,9 @@ void programOne(void)
     clearScreen();
     cout << "\t1> Simple Calculator" << endl;
     cout << "\t" + string(100, char(196)) << endl;
+
+    calculate();
+
     pause("\tdelete function");
     /*function(s) here*/
 }
