@@ -50,7 +50,7 @@ void mainMenu(void)
 }
 
 //PreCondition: NA
-//PostCondition: 
+//PostCondition: runs simple calculator program 
 void programOne(void)
 {
     clearScreen();
@@ -77,7 +77,7 @@ void programOne(void)
 
 
 //PreCondition: NA
-//PostCondition: 
+//PostCondition: runs - translation of arithmetic expression program
 void programTwo(void)
 {
     clearScreen();
@@ -88,7 +88,7 @@ void programTwo(void)
 }
 
 //PreCondition: NA
-//PostCondition: 
+//PostCondition: runs n-queens program
 void programThree(void)
 {
     clearScreen();
