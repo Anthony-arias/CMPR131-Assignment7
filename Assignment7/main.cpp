@@ -104,7 +104,6 @@ void programThree(void)
         {
             cout << "\n\tNo solution.\n";
             system("PAUSE");
-            return;
         }
         else
         {
