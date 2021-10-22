@@ -111,7 +111,6 @@ void programThree(void)
     else
     {
         vector<vector<char>> board(n, vector<char>(n, '_'));
-        displayBoard(board);
 
         cout << "\n\t" << n << "-Queen(s) solution: \n";
         inputQueen(s, board, row, inputColumn, n, queenCount);
@@ -126,6 +125,7 @@ void programThree(void)
         system("PAUSE");
     }
 }
+
 
 //PreCondition: NA
 //PostCondition: displays main menu options
