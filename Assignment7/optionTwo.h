@@ -97,6 +97,7 @@ string infixToPostfix(istream& ins)
 					break;
 				}
 			}
+			else if (ins.peek() == ' ') ins.ignore();
 			else
 			{
 				expression = "ERROR: invalid expression.";
